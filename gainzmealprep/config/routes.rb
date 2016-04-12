@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
+
+  devise_for :users
   resources :food_items
     root 'food_items#index'
+
+  resource :cart, only: [:show] do
+    put 'add/:food_item_id', to: 'carts#add', as: :add_to
+    put 'remove/:food_item_id', to: 'carts#remove', as: :remove_from
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
